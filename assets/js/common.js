@@ -1,3 +1,11 @@
+/*
+ *
+ * Copyright 2014, Derwin Sadiwa - http://www.derwinsadiwa.com
+ * Released under the MIT license - http://opensource.org/licenses/MIT
+ * 
+ */
+
+
 // IIFE - Immediately Invoked Function Expression
   (function(yourcode) {
 
@@ -38,7 +46,7 @@
 	 		nav_animation: 'true'
 	 	}
 
-	function setDotNav(){
+	var setDotNav = function(){
 
 		var slider = document.getElementById('slider');
 		slider.innerHTML += '<div id="slider_nav" class="dotstyle dotstyle-dotmove clearfix">'	
@@ -58,7 +66,7 @@
 		slider.innerHTML += '<nav id="prev_next_btn"><div id="prev_btn"><i class="ion-chevron-left"></i></div>\n<div id="next_btn"><i class="ion-chevron-right"></i></div></nav>';
 	}
 
- 	function init(){
+ 	var init = function(){
  		
  		counter = counter + 1;
  		TweenLite.to($('#slider_content'), 0, {css:{left:-(counter*100)+'%'} });
@@ -81,40 +89,37 @@
  	}
 
 	// create timer
-	function setTimer() {
+	var setTimer = function() {
 		timeoutId = setTimeout(setTimeFunc, timeVal);
 		return false;
 	}
 
-	function animateSlides(num){
-
-		TweenLite.killTweensOf($('#slider_content'));
-		TweenLite.to($('#slider_content'), 0.8, {css:{left:-(num*100)+'%'}, ease:Power2.easeInOut });
+	var animateSlides = function(num){
 
 		if(counter <= 0){
 			TweenLite.killTweensOf($('.dotstyle-dotmove li:last-child'));
 			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:(48*(total_slides-3))}, ease:Power2.easeInOut});
 		}else if(counter >= total_slides-1){
 			TweenLite.killTweensOf($('.dotstyle-dotmove li:last-child'));
-			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:0+'%'}, ease:Power2.easeInOut});
+			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:'0%'}, ease:Power2.easeInOut});
 		}else{
 			TweenLite.killTweensOf($('.dotstyle-dotmove li:last-child'));
 			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:(48*(num-1))}, ease:Power2.easeInOut});
 		}
 
+		TweenLite.killTweensOf($('#slider_content'));
+		TweenLite.to($('#slider_content'), 0.8, {css:{left:-(num*100)+'%'}, ease:Power2.easeInOut });
 	}
 
-	function checkNextPrevLimit(){
+	var checkNextPrevLimit = function(){
 
 		if (counter < 0){
 			counter = total_slides-2;
-			animateSlides(counter);
 			$('#slider_content').css({
 				left: -(counter*100)+'%'
 			});
-			counter = 2;
+			counter = counter - 1;
 			animateSlides(counter);
-
 		}else if (counter >= total_slides) {
 			counter = 1;
 			$('#slider_content').css({
@@ -129,7 +134,7 @@
 	}
 
 	// slide animation
-	function setTimeFunc() {
+	var setTimeFunc = function() {
 
 		counter++;
 		checkNextPrevLimit();
@@ -138,7 +143,7 @@
 		
 	}
 
-	function setController(){
+	var setController = function(){
 
 		$('ul#dot-nav li').each(function(index) {
 	  		$(this).click(function(){
