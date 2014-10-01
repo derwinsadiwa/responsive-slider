@@ -96,18 +96,14 @@
 
 	var animateSlides = function(num){
 
+		TweenLite.killTweensOf([$('.dotstyle-dotmove li:last-child'), $('#slider_content')]);
 		if(counter <= 0){
-			TweenLite.killTweensOf($('.dotstyle-dotmove li:last-child'));
 			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:(48*(total_slides-3))}, ease:Power2.easeInOut});
 		}else if(counter >= total_slides-1){
-			TweenLite.killTweensOf($('.dotstyle-dotmove li:last-child'));
-			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:'0%'}, ease:Power2.easeInOut});
+			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:(48*(num-(total_slides-1)))}, ease:Power2.easeInOut});
 		}else{
-			TweenLite.killTweensOf($('.dotstyle-dotmove li:last-child'));
 			TweenLite.to($('.dotstyle-dotmove li:last-child'), 0.8, { css:{left:(48*(num-1))}, ease:Power2.easeInOut});
 		}
-
-		TweenLite.killTweensOf($('#slider_content'));
 		TweenLite.to($('#slider_content'), 0.8, {css:{left:-(num*100)+'%'}, ease:Power2.easeInOut });
 	}
 
