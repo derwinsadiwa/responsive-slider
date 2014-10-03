@@ -110,6 +110,13 @@ html[xmlns] .clearfix {
 }
 
 /* end slider */
+/* start PRELOADER */
+.ion-ios7-reloading {
+  font-size: 32px;
+  position: absolute;
+}
+
+/* start PRELOADER */
 /* start PREV NEXT navigation */
 #prev_next_btn {
   position: absolute;

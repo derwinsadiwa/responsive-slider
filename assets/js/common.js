@@ -5,21 +5,13 @@
  * 
  */
 
-
-// IIFE - Immediately Invoked Function Expression
   (function(yourcode) {
 
-    // The global jQuery object is passed as a parameter
   	yourcode(window.jQuery, window, document);
 
   }(function($, window, document) {
 
-    // The $ is now locally scoped 
-
-   // Listen for the jQuery ready event on the document
    $(function() {
-
-	// The DOM is ready!
 
 	//clone first image
 	var node_figs = document.getElementById('slider_content').getElementsByTagName('figure'),
@@ -62,8 +54,8 @@
 			i++;
 		}
 		ul.appendChild(document.createElement('li'));
-
 		slider.innerHTML += '<nav id="prev_next_btn"><div id="prev_btn"><i class="ion-chevron-left"></i></div>\n<div id="next_btn"><i class="ion-chevron-right"></i></div></nav>';
+	
 	}
 
  	var init = function(){
@@ -72,6 +64,7 @@
  		TweenLite.to($('#slider_content'), 0, {css:{left:-(counter*100)+'%'} });
  		setDotNav();
  		setController();
+ 		initPreloader();
 
 		$('#slider').css({
 			'max-width': slides.w+'px',
@@ -170,11 +163,38 @@
 		);
 	}
 
+	var initPreloader = function(){
+		
+		var img_arr = [];
+
+		$('#slider_content figure').each(function(index) {
+			var _fig = document.getElementsByTagName('figure');
+			_fig[index].innerHTML += '<i class="icon ion-ios7-reloading"></i>';
+			var icon_preloader = document.getElementsByClassName('ion-ios7-reloading');
+			$('.ion-ios7-reloading').css({
+				display: 'block',
+				position: 'absolute',
+				left: (slides.w/2)-($('.ion-ios7-reloading').width()/2)+'px',
+				top: (slides.h/2)-($('.ion-ios7-reloading').height()/2)+'px'
+			});
+		});
+
+		$('#slider_content figure img').each(function(index) {
+			img_arr[index] = new Image();
+			img_arr[index].onLoad = imagesLoaded(index);
+		});
+
+	}
+
+	var imagesLoaded = function(num){
+		$('.ion-ios7-reloading').css({
+			display: 'none'
+		});
+	}
+
 	init();
 	setTimer();
 
    });
-
-   // The rest of the code goes here!
 
   }));
